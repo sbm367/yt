@@ -17,36 +17,32 @@ API_VERSION = 'v3'
 # accept & parse input
 
 #yt_url = 'https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow'
-yt_url = input('enter url of youtube chanel : ')
-print(yt_url)
-splt = yt_url.split('/')
-print(splt)
-chan_id = splt[-1]
-print(chan_id)
 
-#%#%
+def get_yt_chan( yt_url ):
+	splt = yt_url.split('/')
+	chan_id = splt[-1]
+	# build the base object
+	youtube = build(API_SERVICE_NAME,API_VERSION,developerKey=api_key)
+	# build the request object
+	chan_req = youtube.channels().list(id=chan_id,  part='snippet')
+	# Execute
+	chan = chan_req.execute()
 
-# build the base object
-youtube = build(API_SERVICE_NAME,API_VERSION,developerKey=api_key)
+	# Saved the returned object
 
-# build the request object
-chan_req = youtube.channels().list(id=chan_id,  part='snippet')
+	## dynamicly chnage the name var to chan name
+	## and current date so the sved objects 
+	## are easier to read / process
+	chan_name = chan['items'][0]['snippet']['title']
+	time_stamp = datetime.datetime.now()
+	fln = [chan_name,str(time_stamp)]
+	filename = ','.join(fln)
 
-#%#%
+	outfile = open(filename,'wb')
+	pickle.dump(chan, outfile)
+	outfile.close()
 
-# Execute
-chan = chan_req.execute()
-
-# Saved the returned object
-
-
-## dynamicly chnage the name var to chan name
-## and current date so the sved objects 
-## are easier to read / process
-chan_name = chan['items'][0]['snippet']['title']
-time_stamp = datetime.datetime.now()
-fln = [chan_name,str(time_stamp)]
-filename = ','.join(fln)
+	return chan
 
 # Need to add a subdirectory to store these in
 
@@ -57,27 +53,25 @@ filename = ','.join(fln)
 #f.write(chan)
 #f.close()
 
-outfile = open(filename,'wb')
-pickle.dump(chan, outfile)
-outfile.close()
-
-
-
 #open and read the file after the appending:
 #f = open("api_return_ex_1", "r")
 #chan_read = f.read()
 #print(f.read())
 
-print('this is just coming from a file \n')
-infile = open(filename,'rb')
-new_dict = pickle.load(infile)
-infile.close()
+# print('this is just coming from a file \n')
+# infile = open(filename,'rb')
+# new_dict = pickle.load(infile)
+# infile.close()
+
+
+url = input('enter url of youtube chanel : ')
+new_dic = get_yt_chan(url)
 
 # Process the returned data 
-print(new_dict)
+print(new_dic)
 print('============================================')
-for key in new_dict.keys():
-	print(key,':',new_dict[key])
+for key in new_dic.keys():
+	print(key,':',new_dic[key])
 
 #print(chan)
 #for item in chan:
