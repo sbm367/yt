@@ -1,6 +1,7 @@
 #%#%
 from secrets import api_key
 from apiclient.discovery import build
+import os
 import requests
 import json
 import pickle
@@ -15,7 +16,38 @@ API_VERSION = 'v3'
 youtube = build(API_SERVICE_NAME,API_VERSION,developerKey=api_key)
 
 
-#%#%
+#%%
+
+import os
+CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+print(CURR_DIR)
+
+# Directory 
+#directory = "test"
+  
+# Parent Directory path 
+#rel_dir = './'
+  
+# Path 
+#path = os.path.join(rel_dir, directory) 
+#os.mkdir(path) 
+
+#dir2='test2'
+#os.mkdir(dir2)
+
+cwd = os.getcwd()
+ls = os.listdir(cwd)
+
+for l in ls:
+	print(l)
+
+print(list(filter(os.path.isfile, os.listdir())))
+print(list(filter(os.path.isdir, os.listdir())))
+
+os.system('ls -alt')
+
+#%%
+
 
 # accept & parse input
 
