@@ -35,18 +35,16 @@ print(CURR_DIR)
 #dir2='test2'
 #os.mkdir(dir2)
 
-cwd = os.getcwd()
-ls = os.listdir(cwd)
+#cwd = os.getcwd()
+#ls = os.listdir(cwd)
 
-for l in ls:
-	print(l)
+#for l in ls:
+#	print(l)
 
-print(list(filter(os.path.isfile, os.listdir())))
-print(list(filter(os.path.isdir, os.listdir())))
+#print(list(filter(os.path.isfile, os.listdir())))
+#print(list(filter(os.path.isdir, os.listdir())))
 
-os.system('ls -alt')
-
-#%%
+#%#%
 
 
 # accept & parse input
@@ -169,10 +167,12 @@ def get_yt_chan_vids(yt, upload_playlist_id):
 	return chan_vids
 
 def get_yt_vid_info(yt, vid_id):
-
+	vid_req = yt.videos().list(id=chan_id,  part='snippet,contentDetails,status,statistics', 	maxResults=50)
 	return 'code this later'
 
 def get_yt_vid_coms(yt, vid_id):
+	com_req = yt.commentThreads().
+	list(id=chan_id, part='snippet,contentDetails,status', maxResults='50', order='time')
 	return 'code this later'
 
 # Need to add a subdirectory to store these in
