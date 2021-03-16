@@ -168,11 +168,12 @@ def get_yt_chan_vids(yt, upload_playlist_id):
 
 def get_yt_vid_info(yt, vid_id):
 	vid_req = yt.videos().list(id=chan_id,  part='snippet,contentDetails,status,statistics', 	maxResults=50)
+	vid = vid_req.execute()
 	return 'code this later'
 
 def get_yt_vid_coms(yt, vid_id):
-	com_req = yt.commentThreads().
-	list(id=chan_id, part='snippet,contentDetails,status', maxResults='50', order='time')
+	com_req = yt.commentThreads().list(id=chan_id, part='snippet,contentDetails,status', maxResults='50', order='time')
+	com = com_req.execute()
 	return 'code this later'
 
 # Need to add a subdirectory to store these in
