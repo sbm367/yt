@@ -6,6 +6,10 @@ import requests
 import json
 import pickle
 import datetime
+import sqlite3
+
+#conec = sqlite3.connect('yt.db')
+
 
 # Need to change this to JSON clientsecret obj
 #print(api_key)
