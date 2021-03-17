@@ -24,7 +24,7 @@ youtube = build(API_SERVICE_NAME,API_VERSION,developerKey=api_key)
 
 import os
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
-print(CURR_DIR)
+#print(CURR_DIR)
 
 # Directory 
 #directory = "test"
@@ -147,7 +147,7 @@ def get_yt_chan( yt, yt_url ):
 	#this seems to specfic to chanel, 
 	chan_name = chan['items'][0]['snippet']['title']
 
-	save_obj(chan_name, chan)
+	#save_obj(chan_name, chan)
 
 	return chan
 
@@ -162,9 +162,18 @@ being retrieved.
 '''
 def get_yt_chan_vids(yt, upload_playlist_id):
 	# build the request object
-	chan_vids_req = yt.playlistItems().list(id=upload_playlist_id,  part='snippet,contentDetails,status')
+	'''
+	https://youtube.googleapis.com/youtube/v3/
+	playlistItems?
+	part=snippet%2CcontentDetails%2Cstatus
+	&playlistId=UUnbSssjaMs0ZYTfAemM4LWg
+	&key={}
+	&alt=json
+	'''
+	
+	chan_vids_req = yt.playlistItems().list(id=upload_playlist_id,  part='snippet, contentDetails, status')
 	# Execute
-	chan_vids = chan_req.execute()
+	chan_vids = chan_vids_req.execute()
 
 	# Add a save here 
 
@@ -200,15 +209,16 @@ def get_yt_vid_coms(yt, vid_id):
 #infile.close()
 
 
-url = input('enter url of youtube chanel : ')
-new_dic = get_yt_chan(youtube, url)
+#url = input('enter url of youtube chanel : ')
+#new_dic = get_yt_chan(youtube, url)
 
 # Process the returned data 
+'''
 print(new_dic)
 print('============================================')
 for key in new_dic.keys():
 	print(key,':',new_dic[key])
-
+'''
 #print(chan)
 #for item in chan:
 #	print(item)

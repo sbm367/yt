@@ -1,4 +1,11 @@
 
+Test IDs
+Channel : UCnbSssjaMs0ZYTfAemM4LWg
+PlayList : UUnbSssjaMs0ZYTfAemM4LWg
+Video : lrHQMJSkkTg
+Comments : lrHQMJSkkTg
+
+
 App struct
     yt.py
         asks to input youtube channel
