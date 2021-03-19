@@ -125,7 +125,8 @@ def get_yt_chan( yt, yt_url ):
 	chan_id = splt[-1]
 	# build the base object
 	# build the request object
-	chan_req = yt.channels().list(id=chan_id,  part='snippet,contentDetails,status')
+	chan_req = yt.channels().list(id=chan_id,
+	part='snippet,contentDetails,status')
 	# Execute
 	chan = chan_req.execute()
 
@@ -160,6 +161,9 @@ contains the channel's uploaded videos. The request's part parameter
 value must include contentDetails as one of the channel resource parts 
 being retrieved.
 '''
+# ! Problem here ! 
+# Fixed it, chan_id != upload_id
+# the leading UC... is changed to UU...
 def get_yt_chan_vids(yt, upload_playlist_id):
 	# build the request object
 	'''
@@ -171,7 +175,9 @@ def get_yt_chan_vids(yt, upload_playlist_id):
 	&alt=json
 	'''
 	
-	chan_vids_req = yt.playlistItems().list(id=upload_playlist_id,  part='snippet, contentDetails, status')
+	chan_vids_req = yt.playlistItems().list(playlistId=upload_playlist_id,
+	part='snippet, contentDetails, status')
+	yt.playlistItems
 	# Execute
 	chan_vids = chan_vids_req.execute()
 
@@ -180,14 +186,21 @@ def get_yt_chan_vids(yt, upload_playlist_id):
 	return chan_vids
 
 def get_yt_vid_info(yt, vid_id):
-	vid_req = yt.videos().list(id=chan_id,  part='snippet,contentDetails,status,statistics', 	maxResults=50)
+	vid_req = yt.videos().list( id=vid_id,
+	part='snippet, contentDetails, status, statistics', 	
+	maxResults=50)
+
 	vid = vid_req.execute()
-	return 'code this later'
+	return vid
 
 def get_yt_vid_coms(yt, vid_id):
-	com_req = yt.commentThreads().list(id=chan_id, part='snippet,contentDetails,status', maxResults='50', order='time')
-	com = com_req.execute()
-	return 'code this later'
+	com_req = yt.commentThreads().list( videoId=vid_id, 
+	part='snippet', 
+	maxResults='50', 
+	order='time')
+
+	comments = com_req.execute()
+	return comments
 
 # Need to add a subdirectory to store these in
 
