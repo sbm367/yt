@@ -193,14 +193,26 @@ def get_yt_vid_info(yt, vid_id):
 	vid = vid_req.execute()
 	return vid
 
-def get_yt_vid_coms(yt, vid_id):
+def get_yt_vid_coms(yt, vid_id, nextPage=''):
 	com_req = yt.commentThreads().list( videoId=vid_id, 
 	part='snippet', 
-	maxResults='50', 
-	order='time')
+	maxResults='100', 
+	order='time',
+	pageToken=nextPage)
 
 	comments = com_req.execute()
-	return comments
+	all_coms = [comments]	
+	# Handling responses greater than 100 comments
+	if 'nextPageToken' not in comments.keys():
+		print('No more comments')
+		return all_coms
+	else:
+		# This works, but im not sure how efficient this is
+		print('Next Page Token : ',comments['nextPageToken'])
+		print('RECURSIVE CALL')
+		all_coms.append(get_yt_vid_coms(yt, vid_id, comments['nextPageToken']))
+
+	return all_coms
 
 # Need to add a subdirectory to store these in
 
